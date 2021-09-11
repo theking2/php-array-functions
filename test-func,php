@@ -1,0 +1,30 @@
+<?php
+define('SIZE', 1000000);
+$animal = 'cow';
+
+function sound_dog() { return 'woof'; };
+function sound_cow() { return 'moo'; };
+
+$sounds = [
+	'dog' => function() { return 'woof'; },
+	'cow' => function() { return 'moo'; }
+];
+
+
+$start = microtime(true);
+for( $i=0; $i<SIZE; $i++ ) {
+	$animal = random_int(0,1)? 'cow': 'dog';
+	("sound_$animal")();
+}
+$end = microtime(true);
+printf( "%1.9f seconds\n<br>",  $end - $start);
+
+
+$start = microtime(true);
+for( $i=0; $i<SIZE; $i++ ) {
+	$animal = random_int(0,1)? 'cow': 'dog';
+	$sounds[$animal]();
+}
+$end = microtime(true);
+printf( "%1.9f seconds\n<br>",  $end - $start);
+
